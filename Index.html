@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BANGSA NEWS - Portal Berita Papua Terkini</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Open+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Merriweather', 'serif'],
+                        sans: ['Open Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#c41230',
+                        secondary: '#1a1a1a',
+                        accent: '#0066cc',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- <style>
+    </style> -->
+    <!-- koneksi css -->
+    <link rel="stylesheet" href="asset/css/style.css">
+    <!-- koneksi link css boostrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <!-- koneksi link javascript boostrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</head>
+
+<body class="min-h-screen">
+    <!-- Top Bar -->
+    <div class="top-gradient text-white py-2 text-sm">
+        <div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <span id="currentDate" class="hidden sm:block"></span>
+                <span class="hidden sm:inline">|</span>
+                <a href="#" class="hover:underline">Cetak</a>
+            </div>
+            <div class="flex items-center gap-3">
+                <a href="#" aria-label="Facebook" class="hover:opacity-80">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
+                    </svg>
+                </a>
+                <a href="#" aria-label="Instagram" class="hover:opacity-80">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-main sticky top-0 z-50 shadow-card">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex items-center justify-between h-16 md:h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2" onclick="filterNews('semua'); return false;">
+                    <div class="bg-primary text-white px-3 py-1.5 rounded">
+                        <span class="font-serif font-bold text-xl md:text-2xl">BANGSA</span>
+                    </div>
+                    <span class="font-sans font-bold text-main text-lg hidden sm:block">NEWS</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex items-center gap-1" id="mainNav">
+                    <a href="#" class="nav-link active px-4 py-2 font-semibold text-main text-sm"
+                        data-category="semua">Beranda</a>
+                    <a href="#" class="nav-link px-4 py-2 font-medium text-secondary text-sm hover:text-main"
+                        data-category="nasional">Nasional</a>
+                    <a href="#" class="nav-link px-4 py-2 font-medium text-secondary text-sm hover:text-main"
+                        data-category="persipura">Persipura</a>
+                    <a href="#" class="nav-link px-4 py-2 font-medium text-secondary text-sm hover:text-main"
+                        data-category="daerah">Daerah</a>
+                    <a href="#" class="nav-link px-4 py-2 font-medium text-secondary text-sm hover:text-main"
+                        data-category="ekonomi">Ekonomi</a>
+                    <a href="#" class="nav-link px-4 py-2 font-medium text-secondary text-sm hover:text-main"
+                        data-category="teknologi">Teknologi</a>
+                    <a href="#" class="nav-link px-4 py-2 font-medium text-secondary text-sm hover:text-main"
+                        data-category="olahraga">Olahraga</a>
+                </nav>
+
+                <!-- Actions -->
+                <div class="flex items-center gap-2">
+                    <button id="searchBtn"
+                        class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                        aria-label="Cari berita">
+                        <svg class="w-5 h-5 text-main" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </button>
+                    <button id="themeToggle"
+                        class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                        aria-label="Ganti tema">
+                        <svg class="w-5 h-5 text-main dark:hidden" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                        <svg class="w-5 h-5 text-main hidden dark:block" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                    </button>
+                    <button id="mobileMenuBtn"
+                        class="lg:hidden p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                        aria-label="Menu">
+                        <svg class="w-5 h-5 text-main" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Breaking News -->
+        <div class="bg-primary text-white py-2.5 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 flex items-center gap-3">
+                <span
+                    class="bg-white text-primary px-3 py-1 text-xs font-bold rounded uppercase tracking-wide flex-shrink-0 animate-pulse">Breaking</span>
+                <div class="overflow-hidden flex-1">
+                    <div class="ticker-animate whitespace-nowrap">
+                        <span class="mx-6 cursor-pointer hover:underline">Persipura Menang Telak 3-0 Atas Persija di
+                            Stadion Mandala</span>
+                        <span class="mx-6 cursor-pointer hover:underline">Pemekaran Stadion Mandala Jayapura Siap
+                            Digelar Tahun 2024</span>
+                        <span class="mx-6 cursor-pointer hover:underline">Gubernur Papua: Persipura Kebanggaan Tanah
+                            Papua</span>
+                        <span class="mx-6 cursor-pointer hover:underline">Persipura Menang Telak 3-0 Atas Persija di
+                            Stadion Mandala</span>
+                        <span class="mx-6 cursor-pointer hover:underline">Pemekaran Stadion Mandala Jayapura Siap
+                            Digelar Tahun 2024</span>
+                        <span class="mx-6 cursor-pointer hover:underline">Gubernur Papua: Persipura Kebanggaan Tanah
+                            Papua</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="modal-overlay fixed inset-0 z-50 bg-black/60 lg:hidden">
+        <div class="modal-content absolute right-0 top-0 h-full w-80 bg-main shadow-2xl overflow-y-auto">
+            <div class="p-4">
+                <div class="flex items-center justify-between mb-6">
+                    <span class="font-serif font-bold text-xl text-main">Menu</span>
+                    <button id="closeMobileMenu" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
+                        aria-label="Tutup">
+                        <svg class="w-5 h-5 text-main" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <nav class="space-y-1" id="mobileNav">
+                    <a href="#" class="block px-4 py-3 bg-primary text-white rounded-lg font-medium"
+                        data-category="semua">Beranda</a>
+                    <a href="#"
+                        class="block px-4 py-3 text-main hover:bg-secondary rounded-lg font-medium transition-colors"
+                        data-category="nasional">Nasional</a>
+                    <a href="#"
+                        class="block px-4 py-3 text-main hover:bg-secondary rounded-lg font-medium transition-colors"
+                        data-category="persipura">Persipura</a>
+                    <a href="#"
+                        class="block px-4 py-3 text-main hover:bg-secondary rounded-lg font-medium transition-colors"
+                        data-category="daerah">Daerah</a>
+                    <a href="#"
+                        class="block px-4 py-3 text-main hover:bg-secondary rounded-lg font-medium transition-colors"
+                        data-category="ekonomi">Ekonomi</a>
+                    <a href="#"
+                        class="block px-4 py-3 text-main hover:bg-secondary rounded-lg font-medium transition-colors"
+                        data-category="teknologi">Teknologi</a>
+                    <a href="#"
+                        class="block px-4 py-3 text-main hover:bg-secondary rounded-lg font-medium transition-colors"
+                        data-category="olahraga">Olahraga</a>
+                </nav>
+
+                <!-- WhatsApp in Mobile Menu -->
+                <div
+                    class="mt-8 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
+                    <p class="text-sm text-main font-medium mb-2">Hubungi Kami:</p>
+                    <a href="https://wa.me/628134893823" target="_blank"
+                        class="flex items-center gap-2 text-green-600 dark:text-green-400 font-bold">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                        </svg>
+                        0813-4893-823
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Modal -->
+    <div id="searchModal"
+        class="modal-overlay fixed inset-0 z-50 bg-black/70 flex items-start justify-center pt-24 px-4">
+        <div class="modal-content bg-main rounded-xl shadow-2xl w-full max-w-2xl overflow-hidden">
+            <div class="p-5">
+                <div class="flex items-center gap-3 border-b border-main pb-4">
+                    <svg class="w-5 h-5 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <input id="searchInput" type="text" placeholder="Ketik kata kunci..."
+                        class="flex-1 bg-transparent text-lg text-main placeholder:text-muted focus:outline-none">
+                    <button id="closeSearch" class="p-2 rounded-full hover:bg-secondary transition-colors"
+                        aria-label="Tutup">
+                        <svg class="w-5 h-5 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="pt-4">
+                    <p class="text-sm text-muted mb-3">Pencarian Populer:</p>
+                    <div class="flex flex-wrap gap-2">
+                        <button
+                            class="px-4 py-2 bg-secondary rounded-full text-sm text-main hover:bg-primary hover:text-white transition-colors"
+                            onclick="document.getElementById('searchInput').value='Persipura'; document.getElementById('searchInput').dispatchEvent(new Event('input'));">Persipura</button>
+                        <button
+                            class="px-4 py-2 bg-secondary rounded-full text-sm text-main hover:bg-primary hover:text-white transition-colors"
+                            onclick="document.getElementById('searchInput').value='Jayapura'; document.getElementById('searchInput').dispatchEvent(new Event('input'));">Jayapura</button>
+                        <button
+                            class="px-4 py-2 bg-secondary rounded-full text-sm text-main hover:bg-primary hover:text-white transition-colors"
+                            onclick="document.getElementById('searchInput').value='Liga 1'; document.getElementById('searchInput').dispatchEvent(new Event('input'));">Liga
+                            1</button>
+                    </div>
+                </div>
+                <div id="searchResults" class="mt-5 hidden">
+                    <p class="text-sm text-muted mb-3">Hasil:</p>
+                    <div class="space-y-3" id="searchResultsList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-6" id="contentArea">
+        <!-- Hero Section -->
+        <section class="reveal mb-8">
+            <div class="grid lg:grid-cols-3 gap-5">
+                <!-- Main Featured -->
+                <article
+                    class="lg:col-span-2 news-card bg-card rounded-lg overflow-hidden shadow-card cursor-pointer group">
+                    <div class="relative aspect-[16/10] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800&q=80"
+                            alt="Persipura Main" class="card-image w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                        <div class="absolute top-4 left-4">
+                            <span
+                                class="bg-primary text-white text-xs font-bold px-3 py-1 rounded uppercase">Persipura</span>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 p-5">
+                            <h1
+                                class="font-serif text-xl md:text-2xl lg:text-3xl font-bold text-white leading-tight mb-2 group-hover:text-red-300 transition-colors">
+                                Persipura Jayapura Siap Tempuh Laga Kandang Kontra Persis Solo
+                            </h1>
+                            <p class="text-white/80 text-sm mb-3 line-clamp-2 hidden sm:block">Tim Mutiara Hitam siap
+                                memetik poin penuh di hadapan suporter setianya di Stadion Mandala.</p>
+                            <div class="flex items-center gap-3 text-white/70 text-xs">
+                                <span class="font-medium">Tim Redaksi</span>
+                                <span>•</span>
+                                <span>1 jam lalu</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Side Featured -->
+                <div class="flex flex-col gap-5">
+                    <article
+                        class="news-card bg-card rounded-lg overflow-hidden shadow-card cursor-pointer group flex-1">
+                        <div class="relative aspect-[16/9] overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&q=80"
+                                alt="Stadion" class="card-image w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                            <div class="absolute top-3 left-3">
+                                <span
+                                    class="bg-green-600 text-white text-xs font-bold px-2 py-0.5 rounded uppercase">Daerah</span>
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 p-4">
+                                <h2
+                                    class="font-serif text-base font-bold text-white leading-snug group-hover:text-green-300 transition-colors">
+                                    Renovasi Stadion Mandala Jayapura Dimulai Q2 2024
+                                </h2>
+                            </div>
+                        </div>
+                    </article>
+                    <article
+                        class="news-card bg-card rounded-lg overflow-hidden shadow-card cursor-pointer group flex-1">
+                        <div class="relative aspect-[16/9] overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1577223625816-7546f13df25d?w=400&q=80"
+                                alt="Papua" class="card-image w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                            <div class="absolute top-3 left-3">
+                                <span
+                                    class="bg-blue-600 text-white text-xs font-bold px-2 py-0.5 rounded uppercase">Nasional</span>
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 p-4">
+                                <h2
+                                    class="font-serif text-base font-bold text-white leading-snug group-hover:text-blue-300 transition-colors">
+                                    PON Papua Membangun Infrstruktur Olahraga Modern
+                                </h2>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Category Tabs (Visual Only - Controlled by Nav) -->
+        <section class="reveal mb-6">
+            <div class="flex items-center gap-2 overflow-x-auto pb-3 scrollbar-hide" id="categoryTabs">
+                <button
+                    class="tab-btn active bg-primary text-white px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors"
+                    data-category="semua">Terbaru</button>
+                <button
+                    class="tab-btn bg-main text-main px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap border border-main hover:border-primary hover:text-primary transition-colors"
+                    data-category="persipura">Persipura</button>
+                <button
+                    class="tab-btn bg-main text-main px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap border border-main hover:border-primary hover:text-primary transition-colors"
+                    data-category="daerah">Daerah</button>
+                <button
+                    class="tab-btn bg-main text-main px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap border border-main hover:border-primary hover:text-primary transition-colors"
+                    data-category="nasional">Nasional</button>
+                <button
+                    class="tab-btn bg-main text-main px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap border border-main hover:border-primary hover:text-primary transition-colors"
+                    data-category="ekonomi">Ekonomi</button>
+            </div>
+        </section>
+
+        <!-- Main Grid -->
+        <div class="grid lg:grid-cols-3 gap-8">
+            <!-- News List -->
+            <div class="lg:col-span-2">
+                <section class="reveal">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-1 h-6 bg-primary rounded"></div>
+                        <h2 class="font-serif text-xl font-bold text-main" id="sectionTitle">Berita Terkini</h2>
+                    </div>
+                    <div id="newsGrid" class="space-y-5">
+                        <!-- News items rendered here -->
+                    </div>
+
+                    <!-- Load More -->
+                    <div class="text-center mt-8" id="loadMoreContainer">
+                        <button id="loadMoreBtn"
+                            class="px-8 py-3 bg-primary text-white font-medium rounded-full hover:bg-red-700 transition-colors">
+                            Muat Lebih Banyak
+                        </button>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="lg:col-span-1 space-y-6">
+                <!-- Trending -->
+                <section class="reveal bg-card rounded-lg shadow-card p-5">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-1 h-6 bg-primary rounded"></div>
+                        <h3 class="font-serif text-lg font-bold text-main">Trending Topik</h3>
+                    </div>
+                    <div id="trendingList" class="space-y-4">
+                        <!-- Trending items rendered here -->
+                    </div>
+                </section>
+
+                <!-- Video Section -->
+                <section class="reveal bg-card rounded-lg shadow-card overflow-hidden">
+                    <div class="relative aspect-video">
+                        <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=400&q=80" alt="Video"
+                            class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                            <button
+                                class="w-16 h-16 bg-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+                                aria-label="Play video">
+                                <svg class="w-7 h-7 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M8 5v14l11-7z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <span class="text-primary text-xs font-bold uppercase">Video</span>
+                        <h4 class="font-serif font-bold text-main mt-1">Highlight: Gol Indah Persipura vs Persija</h4>
+                    </div>
+                </section>
+
+                <!-- Contact Us Card -->
+                <section
+                    class="reveal bg-gradient-to-br from-green-500 to-green-600 rounded-lg shadow-card p-5 text-white">
+                    <h3 class="font-serif text-lg font-bold mb-2">Hubungi Redaksi</h3>
+                    <p class="text-white/80 text-sm mb-4">Punya informasi menarik seputar Jayapura? Hubungi kami via
+                        WhatsApp.</p>
+                    <a href="https://wa.me/628134893823" target="_blank"
+                        class="inline-flex items-center gap-2 bg-white text-green-600 px-4 py-2 rounded-full font-bold text-sm hover:bg-gray-100 transition-colors">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                        </svg>
+                        WhatsApp Kami
+                    </a>
+                </section>
+
+                <!-- Newsletter -->
+                <section class="reveal bg-card rounded-lg shadow-card p-5">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-1 h-6 bg-primary rounded"></div>
+                        <h3 class="font-serif text-lg font-bold text-main">Newsletter</h3>
+                    </div>
+                    <p class="text-secondary text-sm mb-4">Dapatkan berita terkini langsung di inbox Anda.</p>
+                    <form id="newsletterForm" class="space-y-3">
+                        <input type="email" placeholder="Alamat email Anda"
+                            class="w-full px-4 py-3 rounded-lg border border-main bg-transparent text-main placeholder:text-muted focus:outline-none focus:border-primary"
+                            required>
+                        <button type="submit"
+                            class="w-full py-3 bg-primary text-white font-medium rounded-lg hover:bg-red-700 transition-colors">
+                            Berlangganan
+                        </button>
+                    </form>
+                </section>
+            </aside>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-main border-t border-main mt-12">
+        <div class="max-w-7xl mx-auto px-4 py-10">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="bg-primary text-white px-3 py-1.5 rounded">
+                            <span class="font-serif font-bold text-lg">BANGSA</span>
+                        </div>
+                        <span class="font-sans font-bold text-main">NEWS</span>
+                    </div>
+                    <p class="text-secondary text-sm leading-relaxed">Portal berita terpercaya dengan informasi terkini
+                        dari Jayapura, Papua, dan Indonesia.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-main mb-4">Kanal Berita</h4>
+                    <ul class="space-y-2 text-sm text-secondary">
+                        <li><a href="#" class="hover:text-primary transition-colors"
+                                onclick="filterNews('persipura'); return false;">Persipura</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors"
+                                onclick="filterNews('daerah'); return false;">Daerah</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors"
+                                onclick="filterNews('nasional'); return false;">Nasional</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors"
+                                onclick="filterNews('ekonomi'); return false;">Ekonomi</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-main mb-4">Perusahaan</h4>
+                    <ul class="space-y-2 text-sm text-secondary">
+                        <li><a href="#" class="hover:text-primary transition-colors">Tentang Kami</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Redaksi</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Karir</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Pasang Iklan</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-main mb-4">Kontak</h4>
+                    <ul class="space-y-2 text-sm text-secondary">
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                            </svg>
+                            <a href="https://wa.me/628134893823"
+                                class="hover:text-primary transition-colors">0813-4893-823</a>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                            <span>redaksi@bangsanews.id</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-main pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p class="text-sm text-muted">&copy; 2024 Bangsa News. Seluruh hak cipta dilindungi.</p>
+                <div class="flex items-center gap-4 text-sm text-muted">
+                    <a href="#" class="hover:text-primary transition-colors">Syarat</a>
+                    <a href="#" class="hover:text-primary transition-colors">Privasi</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/628134893823" target="_blank" class="wa-float" aria-label="Hubungi via WhatsApp">
+        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+            <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+        </svg>
+    </a>
+
+    <!-- Toast Notification -->
+    <div id="toast"
+        class="fixed bottom-20 right-5 bg-card rounded-lg shadow-xl p-4 flex items-center gap-3 transform translate-y-20 opacity-0 transition-all duration-300 z-50 border-l-4 border-primary">
+        <div class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0">
+            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+        </div>
+        <p class="text-main font-medium text-sm" id="toastMessage">Berhasil!</p>
+    </div>
+
+    <script src="./asset/script/javascript.js"></script>
+
+    <!-- <script>
+        // News Data - Focused on Persipura and Jayapura
+        const newsData = [
+            {
+                id: 1,
+                title: "Persipura Jayapura Kalahkan Persis Solo 2-1 di Kandang",
+                excerpt: "Gol dari Boaz Solossa dan Teky Tiool mengantar Mutiara Hitam meraih tiga poin penuh di Liga 1.",
+                category: "persipura",
+                image: "https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=400&q=80",
+                author: "Tim Redaksi",
+                time: "30 menit lalu",
+                trending: 1
+            },
+            {
+                id: 2,
+                title: "Boaz Solossa: Kami Ingin Juara Liga 1 Musim Ini",
+                excerpt: "Kapten tim Persipura menegaskan target tim untuk meraih gelar juara musim ini.",
+                category: "persipura",
+                image: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400&q=80",
+                author: "Yoga Huwaa",
+                time: "1 jam lalu",
+                trending: 2
+            },
+            {
+                id: 3,
+                title: "Stadion Mandala Jayapura Akan Direnovasi Total",
+                excerpt: "Pemerintah Provinsi Papua mengucurkan dana Rp 150 Miliar untuk renovasi total stadion kebanggaan warga Papua.",
+                category: "daerah",
+                image: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&q=80",
+                author: "Martha Wanma",
+                time: "2 jam lalu",
+                trending: 3
+            },
+            {
+                id: 4,
+                title: "Pemkot Jayapura Luncurkan Program Beasiswa Pendidikan",
+                excerpt: "Program beasiswa ini ditujukan untuk pelajar berprestasi dari keluarga kurang mampu.",
+                category: "daerah",
+                image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&q=80",
+                author: "Sartika Tabuni",
+                time: "3 jam lalu",
+                trending: 4
+            },
+            {
+                id: 5,
+                title: "Pasar Sentani Jayapura Terbakar, Kerugian Mencapai Miliaran",
+                excerpt: "Kebakaran hebat melalap ratusan kios di pasar Sentani, Jayapura. Belum ada korban jiwa dilaporkan.",
+                category: "daerah",
+                image: "https://images.unsplash.com/photo-1565636208756-88c6c5c2bb14?w=400&q=80",
+                author: "Danny Numberi",
+                time: "4 jam lalu",
+                trending: 5
+            },
+            {
+                id: 6,
+                title: "Pemain Muda Persipura Didaftar ke PSSI untuk Timnas U-23",
+                excerpt: "Dua pemain muda Persipura, Yanto dan Dicky, masuk dalam daftar pemanggilan Timnas Indonesia U-23.",
+                category: "persipura",
+                image: "https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=400&q=80",
+                author: "Tim Redaksi",
+                time: "5 jam lalu",
+                trending: 0
+            },
+            {
+                id: 7,
+                title: "Gubernur Papua Resmikan Jalan Trans Papua Bagian Timur",
+                excerpt: "Jalan sepanjang 100 km ini menghubungkan Jayapura dengan beberapa kabupaten di Pegunungan Papua.",
+                category: "daerah",
+                image: "https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=400&q=80",
+                author: "Rully Saba",
+                time: "6 jam lalu",
+                trending: 0
+            },
+            {
+                id: 8,
+                title: "Harga Cabai di Jayapura Melonjak Rp 20.000 per Kg",
+                excerpt: "Kenaikan harga dipicu oleh sulitnya distribusi barang dari luar Papua akibat cuaca buruk.",
+                category: "ekonomi",
+                image: "https://images.unsplash.com/photo-1583119022894-919a68a3d0e3?w=400&q=80",
+                author: "Mince Kogoya",
+                time: "7 jam lalu",
+                trending: 0
+            },
+            {
+                id: 9,
+                title: "Pesawat Sriwijaya Air Terpaksa Mendarat Darurat di Bandara Sentani",
+                excerpt: "Insiden terjadi karena indikasi kerusakan mesin tak lama setelah lepas landas.",
+                category: "nasional",
+                image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400&q=80",
+                author: "Tim Redaksi",
+                time: "8 jam lalu",
+                trending: 0
+            },
+            {
+                id: 10,
+                title: "Bank Papua Salurkan Kredit UMKM Rp 50 Miliar di Jayapura",
+                excerpt: "Penyaluran kredit ini untuk membantu pelaku usaha kecil menengah di Kota Jayapura pulih pasca pandemi.",
+                category: "ekonomi",
+                image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&q=80",
+                author: "Yance Wenda",
+                time: "9 jam lalu",
+                trending: 0
+            }
+        ];
+
+        // Initialize variables
+        let displayedNews = 5;
+        let currentCategory = 'semua';
+
+        // DOM Elements
+        const newsGrid = document.getElementById('newsGrid');
+        const trendingList = document.getElementById('trendingList');
+        const categoryTabs = document.querySelectorAll('.tab-btn');
+        const mainNavLinks = document.querySelectorAll('#mainNav .nav-link');
+        const mobileNavLinks = document.querySelectorAll('#mobileNav a');
+        const searchBtn = document.getElementById('searchBtn');
+        const searchModal = document.getElementById('searchModal');
+        const closeSearch = document.getElementById('closeSearch');
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+        const searchResultsList = document.getElementById('searchResultsList');
+        const themeToggle = document.getElementById('themeToggle');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMobileMenu = document.getElementById('closeMobileMenu');
+        const newsletterForm = document.getElementById('newsletterForm');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+        const currentDateEl = document.getElementById('currentDate');
+        const sectionTitle = document.getElementById('sectionTitle');
+
+        // Set current date
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        currentDateEl.textContent = new Date().toLocaleDateString('id-ID', options);
+
+        // Category colors
+        const categoryColors = {
+            nasional: 'bg-primary',
+            persipura: 'bg-red-600',
+            daerah: 'bg-green-600',
+            ekonomi: 'bg-blue-600',
+            teknologi: 'bg-purple-600',
+            olahraga: 'bg-orange-600'
+        };
+
+        const categoryNames = {
+            'semua': 'Berita Terkini',
+            'persipura': 'Berita Persipura',
+            'daerah': 'Berita Daerah Jayapura',
+            'nasional': 'Berita Nasional',
+            'ekonomi': 'Berita Ekonomi',
+            'teknologi': 'Berita Teknologi',
+            'olahraga': 'Berita Olahraga'
+        };
+
+        // Render news
+        function renderNews() {
+            const filteredNews = currentCategory === 'semua'
+                ? newsData
+                : newsData.filter(n => n.category === currentCategory);
+
+            const newsToShow = filteredNews.slice(0, displayedNews);
+
+            newsGrid.innerHTML = newsToShow.map((news, index) => `
+                <article class="news-card bg-card rounded-lg overflow-hidden shadow-card cursor-pointer group" style="animation-delay: ${index * 0.1}s">
+                    <div class="flex flex-col sm:flex-row gap-4 p-4">
+                        <div class="relative sm:w-40 md:w-48 flex-shrink-0 overflow-hidden rounded-lg">
+                            <div class="aspect-[16/10] sm:aspect-auto sm:h-full">
+                                <img src="${news.image}" alt="${news.title}" class="card-image w-full h-full object-cover rounded-lg">
+                            </div>
+                            <span class="absolute top-2 left-2 ${categoryColors[news.category] || 'bg-gray-600'} text-white text-xs font-bold px-2 py-0.5 rounded uppercase">${news.category}</span>
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <h3 class="font-serif text-base md:text-lg font-bold text-main leading-snug mb-2 group-hover:text-primary transition-colors line-clamp-2">${news.title}</h3>
+                            <p class="text-secondary text-sm line-clamp-2 mb-3 hidden sm:block">${news.excerpt}</p>
+                            <div class="flex items-center gap-3 text-xs text-muted">
+                                <span class="font-medium">${news.author}</span>
+                                <span>•</span>
+                                <span>${news.time}</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+
+            loadMoreBtn.style.display = newsToShow.length >= filteredNews.length ? 'none' : 'inline-block';
+        }
+
+        // Render trending
+        function renderTrending() {
+            const trending = newsData.filter(n => n.trending > 0).sort((a, b) => a.trending - b.trending);
+
+            trendingList.innerHTML = trending.map(news => `
+                <a href="#" class="flex gap-3 group" onclick="return false;">
+                    <span class="text-2xl font-serif font-bold text-secondary/20 group-hover:text-primary transition-colors">${String(news.trending).padStart(2, '0')}</span>
+                    <div class="flex-1">
+                        <h4 class="font-medium text-main text-sm leading-snug line-clamp-2 group-hover:text-primary transition-colors">${news.title}</h4>
+                        <span class="text-xs text-muted">${news.time}</span>
+                    </div>
+                </a>
+            `).join('');
+        }
+
+        // Central Filter Function
+        function filterNews(category) {
+            currentCategory = category;
+            displayedNews = 5;
+
+            // Update Title
+            sectionTitle.textContent = categoryNames[category] || 'Berita Terkini';
+
+            // Update Desktop Nav
+            mainNavLinks.forEach(link => {
+                link.classList.remove('active', 'font-semibold', 'text-main');
+                link.classList.add('font-medium', 'text-secondary');
+                if (link.dataset.category === category) {
+                    link.classList.add('active', 'font-semibold', 'text-main');
+                    link.classList.remove('font-medium', 'text-secondary');
+                }
+            });
+
+            // Update Mobile Nav
+            mobileNavLinks.forEach(link => {
+                link.classList.remove('bg-primary', 'text-white');
+                link.classList.add('text-main');
+                if (link.dataset.category === category) {
+                    link.classList.add('bg-primary', 'text-white');
+                    link.classList.remove('text-main');
+                }
+            });
+
+            // Update Category Tabs
+            categoryTabs.forEach(btn => {
+                btn.classList.remove('bg-primary', 'text-white');
+                btn.classList.add('bg-main', 'text-main');
+                if (btn.dataset.category === category) {
+                    btn.classList.remove('bg-main', 'text-main');
+                    btn.classList.add('bg-primary', 'text-white');
+                }
+            });
+
+            renderNews();
+
+            // Scroll to content
+            document.getElementById('contentArea').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // Close mobile menu if open
+            mobileMenu.classList.remove('active');
+        }
+
+        // Category Tabs Click
+        categoryTabs.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterNews(btn.dataset.category);
+            });
+        });
+
+        // Main Nav Click
+        mainNavLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                filterNews(link.dataset.category);
+            });
+        });
+
+        // Mobile Nav Click
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                filterNews(link.dataset.category);
+            });
+        });
+
+        // Search
+        searchBtn.addEventListener('click', () => {
+            searchModal.classList.add('active');
+            setTimeout(() => searchInput.focus(), 100);
+        });
+
+        closeSearch.addEventListener('click', () => {
+            searchModal.classList.remove('active');
+        });
+
+        searchModal.addEventListener('click', (e) => {
+            if (e.target === searchModal) {
+                searchModal.classList.remove('active');
+            }
+        });
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            if (query.length > 2) {
+                const results = newsData.filter(n =>
+                    n.title.toLowerCase().includes(query) ||
+                    n.excerpt.toLowerCase().includes(query) ||
+                    n.category.toLowerCase().includes(query)
+                );
+
+                if (results.length > 0) {
+                    searchResults.classList.remove('hidden');
+                    searchResultsList.innerHTML = results.slice(0, 4).map(news => `
+                        <a href="#" class="flex gap-3 p-2 rounded-lg hover:bg-secondary transition-colors" onclick="return false;">
+                            <img src="${news.image}" alt="" class="w-16 h-12 object-cover rounded">
+                            <div>
+                                <h4 class="font-medium text-main text-sm line-clamp-1">${news.title}</h4>
+                                <span class="text-xs text-muted">${news.time}</span>
+                            </div>
+                        </a>
+                    `).join('');
+                } else {
+                    searchResults.classList.remove('hidden');
+                    searchResultsList.innerHTML = '<p class="text-secondary text-sm py-2">Tidak ada hasil ditemukan</p>';
+                }
+            } else {
+                searchResults.classList.add('hidden');
+            }
+        });
+
+        // Theme toggle
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        });
+
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+
+        // Mobile menu
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+        });
+
+        closeMobileMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+        });
+
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target === mobileMenu) {
+                mobileMenu.classList.remove('active');
+            }
+        });
+
+        // Newsletter
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            showToast('Terima kasih telah berlangganan!');
+            newsletterForm.reset();
+        });
+
+        // Load more
+        loadMoreBtn.addEventListener('click', () => {
+            displayedNews += 3;
+            renderNews();
+        });
+
+        // Toast
+        function showToast(message) {
+            toastMessage.textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Scroll reveal
+        function handleScrollReveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 50) {
+                    el.classList.add('active');
+                }
+            });
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                searchModal.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            }
+        });
+
+        // Initialize
+        renderNews();
+        renderTrending();
+        handleScrollReveal();
+        window.addEventListener('scroll', handleScrollReveal);
+    </script> -->
+</body>
+
+</html>
